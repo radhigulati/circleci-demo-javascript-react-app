@@ -18,12 +18,12 @@ workflows:
       - node/test:
           name: test3
           version: 10.19.0
+      - slack/approval-notification:
+          name: approve
+          message: Pending approval
+          webhook: ${T02519B3Z/B014V6TP45C/qplSg5IvhDhxR5QhSWEBt6ju}
       - heroku/deploy-via-git:
           type: approval
           requires:
-            - test1
-            - test2
-            - test3
-      - slack/approval-notification:
-          message: Pending approval
-          webhook: ${https://hooks.slack.com/services/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}
+            - approve
+      
