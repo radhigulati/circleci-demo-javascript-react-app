@@ -8,11 +8,16 @@ workflows:
   matrix-tests:
     jobs:
       - node/test:
+          name: test1
           version: 13.11.0
       - node/test:
+          name: test2
           version: 12.16.0
       - node/test:
+          name: test3
           version: 10.19.0
       - heroku/deploy-via-git:
           requires:
-            - node/test
+            - test1
+            - test2
+            - test3
