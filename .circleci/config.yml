@@ -22,6 +22,10 @@ workflows:
           name: approve
           message: Pending approval
           webhook: '${SLACK_WEBHOOK}'
+          requires:
+            - test1
+            - test2
+            - test3
       - heroku/deploy-via-git:
           type: approval
           requires:
