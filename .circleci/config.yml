@@ -26,4 +26,4 @@ workflows:
             - test3
       - slack/approval-notification:
           message: Pending approval
-          webhook: webhook
+          webhook: ${https://hooks.slack.com/services/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}
