@@ -21,7 +21,7 @@ workflows:
       - slack/approval-notification:
           name: approve
           message: Pending approval
-          webhook: '${SLACK_WEBHOOK}''
+          webhook: '${SLACK_WEBHOOK}'
       - heroku/deploy-via-git:
           type: approval
           requires:
