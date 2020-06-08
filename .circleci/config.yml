@@ -14,5 +14,9 @@ workflows:
       - node/test:
           version: 10.19.0
       - heroku/deploy-via-git:
-        requires:
-          - node/test
+        filters:
+            branches:
+              only:
+                - master
+          requires:
+            - node/test
