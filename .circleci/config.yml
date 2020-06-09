@@ -33,5 +33,5 @@ workflows:
           message: Deployed!
           webhook: '${SLACK_WEBHOOK}'
           requires:
-            - heroku/deploy/via/git
+            - heroku/deploy-via-git
       
