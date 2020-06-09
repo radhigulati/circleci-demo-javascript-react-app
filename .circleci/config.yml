@@ -30,4 +30,7 @@ workflows:
           type: approval
           requires:
             - approve
+          filters:
+            branches:
+              only: master
       
