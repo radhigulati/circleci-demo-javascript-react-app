@@ -1,8 +1,6 @@
-# CircleCI Demo React JS App
+# Demo React JS App
 
-[![CircleCI](https://circleci.com/gh/CircleCI-Public/circleci-demo-javascript-react-app.svg?style=svg)](https://circleci.com/gh/CircleCI-Public/circleci-demo-javascript-react-app)
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was based off of the CircleCI Demo React JS App
 
 ## Available Scripts
 
