@@ -23,6 +23,10 @@ workflows:
             - test1
             - test2
             - test3
+          steps:
+            - slack/notify:
+              message: Time to deploy!
+              webhook: '${SLACK_WEBHOOK}'
       - heroku/deploy-via-git:
           requires:
             - approve_for_deploy
