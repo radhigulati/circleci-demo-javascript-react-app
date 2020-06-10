@@ -27,7 +27,9 @@ workflows:
           message: Deployed!
           webhook: '${SLACK_WEBHOOK}'
           requires:
-            - approve_for_deploy
+            - test1
+            - test2
+            - test3
       - heroku/deploy-via-git:
           requires:
             - approve_for_deploy
