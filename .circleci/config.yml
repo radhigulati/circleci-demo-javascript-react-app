@@ -24,7 +24,7 @@ workflows:
             - test2
             - test3
       - slack/approval-notification:
-          message: Deployed!
+          message: Time to deploy!
           webhook: '${SLACK_WEBHOOK}'
           requires:
             - test1

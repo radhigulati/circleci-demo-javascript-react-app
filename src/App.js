@@ -24,7 +24,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-      fetch('https://www.reddit.com/r/aww/hot/.json?count=20')
+      fetch('https://www.reddit.com/r/aww/.json?count=20')
       .then(res => res.json())
       .then((data) => {
           console.log(data.data.children);
