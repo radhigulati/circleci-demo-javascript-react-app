@@ -9,27 +9,18 @@ workflows:
   matrix-tests:
     jobs:
       - node/test:
-          name: test1
-          version: 13.11.0
-      - node/test:
-          name: test2
-          version: 12.16.0
-      - node/test:
-          name: test3
-          version: 10.19.0
+          matrix:
+            parameters:
+              version: ['13.11.0','12.16.0','10.19.0']
       - approve_for_deploy:
           type: approval
           requires:
-            - test1
-            - test2
-            - test3
+            - node/test
       - slack/approval-notification:
           message: Time to deploy!
           webhook: '${SLACK_WEBHOOK}'
           requires:
-            - test1
-            - test2
-            - test3
+            - node/test
       - heroku/deploy-via-git:
           requires:
             - approve_for_deploy
