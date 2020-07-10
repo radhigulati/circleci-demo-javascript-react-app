@@ -6,48 +6,48 @@ orbs:
   heroku: circleci/heroku@1.0.1
   codecov: codecov/codecov@1.1.0
 
-  jobs:
-    node/test:
-      matrix:
-        parameters:
-          version: ['13.11.0','12.16.0','10.19.0']
-    build:
-      steps:
-        - codecov/upload:
-            file: bash <(curl -s https://codecov.io/bash)
-    slack/approval-notification:
-      message: Time to deploy!
+jobs:
+  node/test:
+    matrix:
+      parameters:
+        version: ['13.11.0','12.16.0','10.19.0']
+  build:
+    steps:
+      - codecov/upload:
+          file: bash <(curl -s https://codecov.io/bash)
+  slack/approval-notification:
+    message: Time to deploy!
+    webhook: '${SLACK_WEBHOOK}'
+  slack-approval:
+    slack/notify:
+      message: Deployed!
       webhook: '${SLACK_WEBHOOK}'
-    slack-approval:
-      slack/notify:
-        message: Deployed!
-        webhook: '${SLACK_WEBHOOK}'
 
   
-  workflows:
-  matrix-tests:
-    jobs:
-      - node/test
-      - build:
+workflows:
+matrix-tests:
+  jobs:
+    - node/test
+    - build:
+      requires:
+        - node/test
+    - approve_for_deploy:
+        type: approval
         requires:
           - node/test
-      - approve_for_deploy:
-          type: approval
-          requires:
-            - node/test
-      - slack/approval-notification:
-          requires:
-            - node/test
-      - heroku/deploy-via-git:
-          filters:
-            branches:
-              only: master
-      - heroku/deploy-via-git:
-          requires:
-            - approve_for_deploy
-      - slack-approval:
-          requires:
-            - heroku/deploy-via-git
+    - slack/approval-notification:
+        requires:
+          - node/test
+    - heroku/deploy-via-git:
+        filters:
+          branches:
+            only: master
+    - heroku/deploy-via-git:
+        requires:
+          - approve_for_deploy
+    - slack-approval:
+        requires:
+          - heroku/deploy-via-git
       
       
 
