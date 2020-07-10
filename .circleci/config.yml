@@ -12,7 +12,10 @@ jobs:
       - node/install-npm
       - node/install-packages
       - run:
+          name: Run tests
           command: npm run test
+      - run:
+          name: code cov
           command: "bash <(curl -s https://codecov.io/bash)"
       
       
