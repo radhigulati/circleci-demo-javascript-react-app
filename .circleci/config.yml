@@ -28,7 +28,6 @@ orbs:
 
   
   workflows:
-  matrix-tests:
     jobs:
       - node/test
       - approve_for_deploy:
