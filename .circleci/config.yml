@@ -4,6 +4,7 @@ orbs:
   node: circleci/node@2.0.2
   slack: circleci/slack@3.4.2
   heroku: circleci/heroku@1.0.1
+  codecov: codecov/codecov@1.1.0
 
 workflows:
   matrix-tests:
@@ -32,4 +33,7 @@ workflows:
           webhook: '${SLACK_WEBHOOK}'
           requires:
             - heroku/deploy-via-git
+      - codecov/upload:
+          name: Send to codecov
+          command: "bash <(curl -s https://codecov.io/bash)"
       
