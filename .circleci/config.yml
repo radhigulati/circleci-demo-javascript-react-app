@@ -13,8 +13,8 @@ jobs:
       - node/install-packages
       - run:
           command: npm run test
-      - codecov/upload:
-          file: bash <(curl -s https://codecov.io/bash)
+          command: |
+          bash <(curl -s https://codecov.io/bash)
       
       
 
