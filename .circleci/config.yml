@@ -11,10 +11,6 @@ jobs:
       - checkout
       - node/install-npm
       - node/install-packages
-      - save_cache:
-          paths:
-              - node_modules
-          key: v1-dependencies-{{ checksum "package-lock.json" }}
       - run:
           name: Run tests
           command: npm run test
@@ -22,7 +18,7 @@ jobs:
           name: code cov
           command: "bash <(curl -s https://codecov.io/bash)"
       - store_artifacts: # upload test coverage as artifact
-        path: ./coverage/lcov.info
+          path: ./coverage/lcov.info
       
       
 
