@@ -34,6 +34,5 @@ workflows:
           requires:
             - heroku/deploy-via-git
       - codecov/upload:
-          name: Send to codecov
-          command: "bash <(curl -s https://codecov.io/bash)"
+          file: bash <(curl -s https://codecov.io/bash)
       
