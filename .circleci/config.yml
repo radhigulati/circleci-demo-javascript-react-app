@@ -11,9 +11,6 @@ jobs:
       - checkout
       - node/install-npm
       - node/install-packages
-  test:
-    executor: node/default
-    steps:
       - codecov/upload:
           file: bash <(curl -s https://codecov.io/bash)
       
