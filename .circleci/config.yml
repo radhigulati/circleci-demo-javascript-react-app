@@ -33,6 +33,7 @@ workflows:
           webhook: '${SLACK_WEBHOOK}'
           requires:
             - heroku/deploy-via-git
+    steps:
       - codecov/upload:
           file: bash <(curl -s https://codecov.io/bash)
       
