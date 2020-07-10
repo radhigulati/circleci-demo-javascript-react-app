@@ -10,12 +10,15 @@ jobs:
     steps:
       - checkout
       - codecov/upload:
-                file: bash <(curl -s https://codecov.io/bash)
+          file: bash <(curl -s https://codecov.io/bash)
       
 
 workflows:
 matrix-tests:
   jobs:
+    - build:
+      - requires:
+          node/test
     - node/test:
         matrix:
           parameters:
