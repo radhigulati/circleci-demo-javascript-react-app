@@ -11,16 +11,16 @@ orbs:
           matrix:
             parameters:
               version: ['13.11.0','12.16.0','10.19.0']
-      - approve_for_deploy:
+     - approve_for_deploy:
           type: approval
-      - slack/approval-notification:
+     - slack/approval-notification:
           message: Time to deploy!
           webhook: '${SLACK_WEBHOOK}'
-      - heroku/deploy-via-git:
+     - heroku/deploy-via-git:
           filters:
             branches:
               only: master
-      - slack/approval-notification:
+     - slack/approval-notification:
           message: Deployed!
           webhook: '${SLACK_WEBHOOK}'
 
@@ -30,7 +30,6 @@ orbs:
     jobs:
       - node/test:
       - approve_for_deploy:
-          # type: approval
           requires:
             - node/test
       - slack/approval-notification:
