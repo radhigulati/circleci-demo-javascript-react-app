@@ -11,11 +11,9 @@ orbs:
       matrix:
         parameters:
           version: ['13.11.0','12.16.0','10.19.0']
-        steps:
-          - codecov/upload:
-              file: bash <(curl -s https://codecov.io/bash)
-    approve_for_deploy:
-      type: approval
+      steps:
+        - codecov/upload:
+            file: bash <(curl -s https://codecov.io/bash)
     slack/approval-notification:
       message: Time to deploy!
       webhook: '${SLACK_WEBHOOK}'
@@ -23,16 +21,18 @@ orbs:
       filters:
         branches:
           only: master
-    slack/approval-notification:
-      message: Deployed!
-      webhook: '${SLACK_WEBHOOK}'
+    slack-approval:
+      slack/notify:
+        message: Deployed!
+        webhook: '${SLACK_WEBHOOK}'
 
   
   workflows:
   matrix-tests:
     jobs:
-      - node/test:
+      - node/test
       - approve_for_deploy:
+          type: approval
           requires:
             - node/test
       - slack/approval-notification:
@@ -41,7 +41,7 @@ orbs:
       - heroku/deploy-via-git:
           requires:
             - approve_for_deploy
-      - slack/approval-notification:
+      - slack-approval:
           requires:
             - heroku/deploy-via-git
       
