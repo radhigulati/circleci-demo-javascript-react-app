@@ -17,6 +17,12 @@ jobs:
       - run:
           name: code cov
           command: "bash <(curl -s https://codecov.io/bash)"
+      - run: 
+          name: run our tests
+          command: |
+            npm run build
+            percy snapshot public
+
       - store_test_results:
           path: ./test-results
       - store_artifacts: # upload test coverage as artifact
