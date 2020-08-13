@@ -6,13 +6,13 @@ orbs:
   heroku: circleci/heroku@1.0.1
 
 jobs:
-  - build:
-      docker:
-        - image: circleci/node:13.11.0
+  build:
+    docker:
+      - image: circleci/node:13.11.0
 
-      steps: 
-        - checkout
-        - run: npm install
+    steps: 
+      - checkout
+      - run: npm install
 workflows:
   matrix-tests:
     jobs:
