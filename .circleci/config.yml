@@ -20,12 +20,15 @@ workflows:
       - node/test:
           name: test1
           version: 13.11.0
+          requires: build
       - node/test:
           name: test2
           version: 12.16.0
+          requires: build
       - node/test:
           name: test3
           version: 10.19.0
+          requires: build
       - approve_for_deploy:
           type: approval
           requires:
