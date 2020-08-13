@@ -16,6 +16,7 @@ jobs:
 workflows:
   matrix-tests:
     jobs:
+      - build
       - node/test:
           name: test1
           version: 13.11.0
