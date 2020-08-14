@@ -13,7 +13,7 @@ jobs:
     steps: 
       - checkout
       - run: npm install
-#workflows:
+workflows:
   matrix-tests:
     jobs:
       - build
