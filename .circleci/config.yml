@@ -10,43 +10,43 @@ jobs:
     docker:
       - image: circleci/node:13.11.0
 
-    # steps: 
-    #   - checkout
-    #   - run: npm install
-# workflows:
-#   matrix-tests:
-#     jobs:
-#       - build
-#       - node/test:
-#           name: test1
-#           version: 13.11.0
-#           requires: 
-#             - build
-#       - node/test:
-#           name: test2
-#           version: 12.16.0
-#           requires: 
-#             - build
-#       - node/test:
-#           name: test3
-#           version: 10.19.0
-#           requires: 
-#             - build
-#       - approve_for_deploy:
-#           type: approval
-#           requires:
-#             - test1
-#             - test2
-#             - test3
-#       - heroku/deploy-via-git:
-#           requires:
-#             - approve_for_deploy
-#           filters:
-#             branches:
-#               only: master
-#       - slack/approval-notification:
-#           message: Deployed!
-#           webhook: '${SLACK_WEBHOOK}'
-#           requires:
-#             - heroku/deploy-via-git
+    steps: 
+      - checkout
+      - run: npm install
+workflows:
+  matrix-tests:
+    jobs:
+      - build
+      - node/test:
+          name: test1
+          version: 13.11.0
+          requires: 
+            - build
+      - node/test:
+          name: test2
+          version: 12.16.0
+          requires: 
+            - build
+      - node/test:
+          name: test3
+          version: 10.19.0
+          requires: 
+            - build
+      - approve_for_deploy:
+          type: approval
+          requires:
+            - test1
+            - test2
+            - test3
+      - heroku/deploy-via-git:
+          requires:
+            - approve_for_deploy
+          filters:
+            branches:
+              only: master
+      - slack/approval-notification:
+          message: Deployed!
+          webhook: '${SLACK_WEBHOOK}'
+          requires:
+            - heroku/deploy-via-git
       
