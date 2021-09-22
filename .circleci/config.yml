@@ -49,4 +49,10 @@ workflows:
           webhook: '${SLACK_WEBHOOK}'
           requires:
             - heroku/deploy-via-git
-      
+  sched-cd-wf:
+    triggers:
+      - schedule:
+          cron: "45 15 23 * *" 
+          filters:
+            branches:
+              only: master
