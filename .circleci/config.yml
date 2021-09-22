@@ -15,6 +15,12 @@ jobs:
       - run: npm install
 workflows:
   matrix-tests:
+    triggers:
+        - schedule:
+            cron: "45 15 23 * *" 
+            filters:
+              branches:
+                only: master
     jobs:
       - build
       - node/test:
@@ -49,10 +55,3 @@ workflows:
           webhook: '${SLACK_WEBHOOK}'
           requires:
             - heroku/deploy-via-git
-  sched-cd-wf:
-    triggers:
-      - schedule:
-          cron: "45 15 23 * *" 
-          filters:
-            branches:
-              only: master
