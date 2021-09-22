@@ -17,10 +17,11 @@ workflows:
   matrix-tests:
     triggers:
         - schedule:
-            cron: "51 15 22 9 1" 
+            cron: "57 15 22 9 1" 
             filters:
               branches:
-                only: master
+                only:
+                  - master
     jobs:
       - build
       - node/test:
