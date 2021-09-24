@@ -15,13 +15,6 @@ jobs:
       - run: npm install
 workflows:
   matrix-tests:
-    triggers:
-        - schedule:
-            cron: "57 15 22 9 1" 
-            filters:
-              branches:
-                only:
-                  - master
     jobs:
       - build
       - node/test:
@@ -56,3 +49,26 @@ workflows:
           webhook: '${SLACK_WEBHOOK}'
           requires:
             - heroku/deploy-via-git
+  sched-wf:
+    triggers:
+      - schedule:
+          cron: "*/5 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+    
+    jobs:
+      - heroku/deploy-via-git:
+          requires:
+            - approve_for_deploy
+          filters:
+            branches:
+              only: master
+      - slack/approval-notification:
+          message: Deployed!
+          webhook: '${SLACK_WEBHOOK}'
+          requires:
+            - heroku/deploy-via-git
+
+      
