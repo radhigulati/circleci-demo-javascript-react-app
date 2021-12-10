@@ -17,34 +17,41 @@ workflows:
   matrix-tests:
     jobs:
       - build
+      - circleci_ip_ranges: true
       - node/test:
+      - circleci_ip_ranges: true
           name: test1
           version: 13.11.0
           requires: 
             - build
       - node/test:
+      - circleci_ip_ranges: true
           name: test2
           version: 12.16.0
           requires: 
             - build
       - node/test:
+      - circleci_ip_ranges: true
           name: test3
           version: 10.19.0
           requires: 
             - build
       - approve_for_deploy:
+      - circleci_ip_ranges: true
           type: approval
           requires:
             - test1
             - test2
             - test3
       - heroku/deploy-via-git:
+      - circleci_ip_ranges: true
           requires:
             - approve_for_deploy
           filters:
             branches:
               only: master
       - slack/approval-notification:
+      - circleci_ip_ranges: true
           message: Deployed!
           webhook: '${SLACK_WEBHOOK}'
           requires:
