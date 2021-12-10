@@ -33,9 +33,9 @@ workflows:
       - approve_for_deploy:
           type: approval
           requires:
-            - test1
-            - test2
-            - test3
+            - node/test1
+            - node/test2
+            - node/test3
       - heroku/deploy-via-git:
           requires:
             - approve_for_deploy
