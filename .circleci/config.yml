@@ -18,24 +18,27 @@ workflows:
   matrix-tests:
     jobs:
       - build
-      - node/test1:
+      - node/test:
+          name: test1
           version: 13.11.0
           requires: 
             - build
-      - node/test2:
+      - node/test:
+          name: test2
           version: 12.16.0
           requires: 
             - build
-      - node/test3:
+      - node/test:
+          name: test3
           version: 10.19.0
           requires: 
             - build
       - approve_for_deploy:
           type: approval
           requires:
-            - node/test1
-            - node/test2
-            - node/test3
+            - test1
+            - test2
+            - test3
       - heroku/deploy-via-git:
           requires:
             - approve_for_deploy
