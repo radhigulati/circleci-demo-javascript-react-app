@@ -50,7 +50,6 @@ workflows:
             branches:
               only: master
       - slack/approval-notification:
-         circleci_ip_ranges: true
           message: Deployed!
           webhook: '${SLACK_WEBHOOK}'
           requires:
