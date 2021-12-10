@@ -14,28 +14,19 @@ jobs:
     steps: 
       - checkout
       - run: npm install
-  node/test1:
-    circleci_ip_ranges: true
-  node/test2:
-    circleci_ip_ranges: true
-  node/test3:
-    circleci_ip_ranges: true
 workflows:
   matrix-tests:
     jobs:
       - build
       - node/test1:
-          name: test1
           version: 13.11.0
           requires: 
             - build
       - node/test2:
-          name: test2
           version: 12.16.0
           requires: 
             - build
       - node/test3:
-          name: test3
           version: 10.19.0
           requires: 
             - build
