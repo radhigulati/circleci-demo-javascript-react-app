@@ -14,12 +14,12 @@ jobs:
     steps: 
       - checkout
       - run: npm install
-   node/test1:
-     circleci_ip_ranges: true
-   node/test2:
-     circleci_ip_ranges: true
-   node/test3:
-     circleci_ip_ranges: true
+  node/test1:
+    circleci_ip_ranges: true
+  node/test2:
+    circleci_ip_ranges: true
+  node/test3:
+    circleci_ip_ranges: true
 workflows:
   matrix-tests:
     jobs:
