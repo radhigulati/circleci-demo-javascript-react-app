@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <Layout>
-        <Header title="Orbs are cool!"/>
+        <Header title="Orbs are awesome!"/>
         <Container>
           <Card cards={ this.state.cards } />
         </Container>
