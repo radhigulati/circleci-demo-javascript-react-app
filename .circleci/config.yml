@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@2.0.2
+  node: circleci/node@2.1.1
   slack: circleci/slack@3.4.2
   # heroku: circleci/heroku@1.0.1
 
@@ -11,9 +11,30 @@ jobs:
     docker:
       - image: cimg/node:13.11.0
 
-    steps: 
+    steps:
       - checkout
-      - run: npm install
+      - run:
+          name: Update NPM
+          command: "sudo npm install -g npm"
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Build React App
+          command: npm run build
+      - save_cache:
+          key: app-build-cache-{{ .Branch }}
+          paths:
+            - ./build
+      - run:
+          name: Deploy to Netlify
+          command: ./node_modules/.bin/netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --prod --dir=build
 workflows:
   matrix-tests:
     jobs:
@@ -39,9 +60,7 @@ workflows:
             - test1
             - test2
             - test3
-      - deploy:
-          name: netlifydeploy
-          command: ./node_modules/.bin/netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --prod --dir=build
+
       #  - deploy:
       #     name: netlifydeploy
       #     requires:
