@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <Layout>
-        <Header title="Orbs are cool!"/>
+        <Header title="/aww subreddit"/>
         <Container>
           <Card cards={ this.state.cards } />
         </Container>
@@ -24,7 +24,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-      fetch('https://www.reddit.com/r/aww/.json?count=20')
+      fetch('https://www.reddit.com/r/aww/.json?count=10')
       .then(res => res.json())
       .then((data) => {
           console.log(data.data.children);
